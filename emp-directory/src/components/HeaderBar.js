@@ -2,6 +2,13 @@ import React from 'react'
 import { Navbar, Nav, NavDropdown, Form, FormControl, Button } from "react-bootstrap"
 
 export default function HeaderBar() {
+  const [searchTerm, setSearchTerm] = React.useState("")
+
+  const handleChange = event => {
+    setSearchTerm(event.target.value);
+  };
+
+  const searchValue  = localStorage.setItem("searchvalue", searchTerm) 
 
     return (
         <div>
@@ -21,7 +28,7 @@ export default function HeaderBar() {
       </NavDropdown>
     </Nav>
     <Form inline>
-      <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+      <FormControl type="text" placeholder="Search" className="search" value={searchTerm} onChange={handleChange} />
       <Button variant="outline-success">Search</Button>
     </Form>
   </Navbar.Collapse>
@@ -29,3 +36,4 @@ export default function HeaderBar() {
         </div>
     )
 }
+
