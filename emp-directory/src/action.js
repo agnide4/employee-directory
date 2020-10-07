@@ -102,13 +102,13 @@ const getUserSuccess = (users) => ({
       return (dispatch, getState) =>{
         switch(sortOrder) {
             case "asc":
-                users.sort((a,b)=> (a.age>b.age) ? 1 : -1)
+                users.sort((a,b)=> (a.dob.age>b.dob.age) ? 1 : -1)
                 // list.sort((a, b) => (a.color > b.color) ? 1 : -1)
                 console.log(users)
                 dispatch(sortbyAgeSuccess(users))
                 break;
             case "dsc":
-                users.sort((a,b)=> (a.age < b.age) ? 1 : -1 )
+                users.sort((a,b)=> (a.dob.age < b.dob.age) ? 1 : -1 )
                 console.log(users)
                 dispatch(sortbyAgeSuccess(users))
                 break;
