@@ -1,10 +1,11 @@
-import {GET_USERS_REQUEST,  GET_USERS_SUCCESS, GET_USERS_FAILURE} from "./constants"
-
+import {GET_USERS_REQUEST,  GET_USERS_SUCCESS, GET_USERS_FAILURE, GET_SVALUE_REQUEST, GET_SVALUE_SUCCESS, GET_SVALUE_FAILURE} from "./constants"
+import {SEACH_BY_NAME} from "./constants"
 
 
 export const initialState = {
     users: [],
     searchTerm: "",
+    filteredList: [],
     error: ""
   };
 
@@ -17,6 +18,14 @@ export const initialState = {
               return {...state, users: action.payload, error: null}
           case GET_USERS_FAILURE: 
               return {...state, error: action.payload}
+          case GET_SVALUE_REQUEST:
+              return {...state, searchTerm: "", error: null}
+          case GET_SVALUE_SUCCESS:
+              return {...state, searchTerm: action.payload, error: null}
+         case GET_SVALUE_FAILURE:
+              return {...state, error: action.payload}
+         case SEACH_BY_NAME:
+              return {...state, filteredList:action.payload, error: null}
           default:
               return state
       }

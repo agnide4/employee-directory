@@ -1,7 +1,7 @@
 import React from 'react'
 import {useState, useEffect} from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { getUsers } from '../action';
+import { getUsers, searchbyName } from '../action';
 import { v4 } from "uuid"
 
 
@@ -36,16 +36,22 @@ export default function UserList() {
     // ])
     
    const dispatch = useDispatch();
-    const [users, error] = useSelector((gState) => [
+    const [users, error, searchTerm, filteredList] = useSelector((gState) => [
         gState.users,
-        gState.error
+        gState.error,
+        gState.searchTerm,
+        gState.filteredList
     ])
 
     useEffect(() => {
         dispatch(getUsers());
     },[]);
 
-    console.log(users)
+    useEffect(() => {
+        dispatch(searchbyName(searchTerm, users))
+    },[searchTerm]);
+
+   
     
 
     const setColor = (status) =>{
@@ -70,8 +76,14 @@ export default function UserList() {
                         </div>
                     ))
 
-                ): <p>No user added</p>
-                
+                ): searchTerm ? (
+                    filteredList.map((item, user) =>(
+                        <div key={user.id}>
+                            <span><img src={item.picture.medium} ></img></span> <h3>{item.name.first} {item.name.last} </h3>
+                            <p>Gender: {item.gender} Phone number: {item.phone} Age: {item.dob.age}</p>
+                        </div>
+                    ))
+                ): <p>none</p>
                 
             }
         </div>

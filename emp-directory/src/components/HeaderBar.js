@@ -1,14 +1,21 @@
 import React from 'react'
 import { Navbar, Nav, NavDropdown, Form, FormControl, Button } from "react-bootstrap"
+import { useSelector, useDispatch } from "react-redux"
+import {getSvalue} from "../action"
 
 export default function HeaderBar() {
-  const [searchTerm, setSearchTerm] = React.useState("")
-
+  const [searchTerm, error] = useSelector((gState) => [
+    gState.searchTerm,
+    gState.error
+])
+  const dispatch = useDispatch()
   const handleChange = event => {
-    setSearchTerm(event.target.value);
+  let term = event.target.value
+  dispatch(getSvalue(term))
+    
   };
 
-  const searchValue  = localStorage.setItem("searchvalue", searchTerm) 
+
 
     return (
         <div>
