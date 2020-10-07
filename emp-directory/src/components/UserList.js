@@ -3,6 +3,7 @@ import {useState, useEffect} from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { getUsers, searchbyName, sortByAge } from '../action';
 import { v4 } from "uuid"
+import "../App.css"
 
 
 
@@ -59,33 +60,27 @@ export default function UserList() {
    
     
 
-    const setColor = (status) =>{
-        if(status){
-            return {background: "green"}
-
-        }else {
-            return {background: "red"}
-        }
-    }
+    
 
     return (
 
         <div>
             {
-                users ? (
-                    users.map((user, id) => (
-                        <div  key={id = v4()} className= "userDiv" style={setColor(user.isActive)}>
+                filteredList ? (
+                    filteredList.map((item, id) => (
+                        <div key={id = item.id} className= "userDiv" >
+                            <span><img src={item.picture.medium} ></img></span> <h3>{item.name.first} {item.name.last} </h3>
+                            <p>Gender: {item.gender} Phone number: {item.phone} Age: {item.dob.age}</p>
+                        </div>
+                        
+                    ))
+
+                ): users ? (
+                    users.map((user, id) =>(
+                        <div  key={id = v4()} className= "userDiv" >
                             <span><img src={user.picture.medium} ></img></span> <h3>{user.name.first} {user.name.last} </h3>
                             <p>Gender: {user.gender} Phone number: {user.phone} Age: {user.dob.age}</p>
                                
-                        </div>
-                    ))
-
-                ): searchTerm ? (
-                    filteredList.map((item, user) =>(
-                        <div key={user.id}>
-                            <span><img src={item.picture.medium} ></img></span> <h3>{item.name.first} {item.name.last} </h3>
-                            <p>Gender: {item.gender} Phone number: {item.phone} Age: {item.dob.age}</p>
                         </div>
                     ))
                 ): <p>none</p>

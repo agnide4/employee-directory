@@ -36,3 +36,10 @@
     transform: rotate(360deg);
   }
 }
+
+.userDiv{
+ 
+  background-color:lightblue;
+  align-items: center;
+ 
+}
