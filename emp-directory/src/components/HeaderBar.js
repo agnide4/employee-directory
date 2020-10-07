@@ -1,12 +1,13 @@
 import React from 'react'
 import { Navbar, Nav, NavDropdown, Form, FormControl, Button } from "react-bootstrap"
 import { useSelector, useDispatch } from "react-redux"
-import {getSvalue} from "../action"
+import {getSvalue, getSortValue} from "../action"
 
 export default function HeaderBar() {
-  const [searchTerm, error] = useSelector((gState) => [
+  const [searchTerm, error, sortTerm] = useSelector((gState) => [
     gState.searchTerm,
-    gState.error
+    gState.error,
+    gState.sortTerm,
 ])
   const dispatch = useDispatch()
   const handleChange = event => {
@@ -15,7 +16,12 @@ export default function HeaderBar() {
     
   };
 
+  const sortHandleChange = event => {
+    let order = event
+    console.log(order)
+    dispatch(getSortValue(order))
 
+  }
 
     return (
         <div>
@@ -26,12 +32,13 @@ export default function HeaderBar() {
     <Nav className="mr-auto">
       <Nav.Link href="#home">Home</Nav.Link>
       <Nav.Link href="#link">Link</Nav.Link>
-      <NavDropdown title="Sort List by" id="basic-nav-dropdown">
-        <NavDropdown.Item href="#action/3.1">Department</NavDropdown.Item>
-        <NavDropdown.Item href="#action/3.2">Alphabetically</NavDropdown.Item>
+      <NavDropdown title="Sort List by Age" id="basic-nav-dropdown" value={sortTerm} onSelect={sortHandleChange}>
+        <NavDropdown.Item eventKey="asc" >ASCENDING</NavDropdown.Item>
+        <NavDropdown.Item eventKey="dsc">DESCENDING</NavDropdown.Item>
+        {/* <NavDropdown.Item href="#action/3.2">Alphabetically</NavDropdown.Item>
         <NavDropdown.Item href="#action/3.3">Seniority</NavDropdown.Item>
         <NavDropdown.Divider />
-        <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+        <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item> */}
       </NavDropdown>
     </Nav>
     <Form inline>

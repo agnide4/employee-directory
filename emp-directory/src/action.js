@@ -1,5 +1,6 @@
-import {GET_USERS_REQUEST,  GET_USERS_SUCCESS, GET_USERS_FAILURE, SEACH_BY_NAME} from "./constants"
+import {GET_USERS_REQUEST,  GET_USERS_SUCCESS, GET_USERS_FAILURE, SEACH_BY_NAME, SORT_BY_AGE} from "./constants"
 import {GET_SVALUE_REQUEST,  GET_SVALUE_SUCCESS, GET_SVALUE_FAILURE} from "./constants"
+import { GET_SORDER_REQUEST, GET_SORDER_SUCCESS, GET_SORDER_FAILURE } from "./constants"
 import axios from "axios"
 
 
@@ -51,7 +52,7 @@ const getUserSuccess = (users) => ({
       }
 
   }
-  const searchSucess = (filteredList) => ({
+  const searchSuccess = (filteredList) => ({
     type: SEACH_BY_NAME,
     payload: filteredList
   })
@@ -61,11 +62,58 @@ const getUserSuccess = (users) => ({
           if(searchTerm)(
               users.filter(user => user.name.first.toLowerCase().includes(searchTerm)).map(filteredUser =>{
                   newList.push(filteredUser)
-                  dispatch(searchSucess(newList))
+                  dispatch(searchSuccess(newList))
               })
           )
           else (
-              dispatch(searchSucess())
+              dispatch(searchSuccess())
           )
+      }
+  }
+
+
+  const getSorderSuccess = (sortOrder) => ({
+    type: GET_SORDER_SUCCESS,
+    payload: sortOrder
+  })
+  //When Request from API fails
+  const getSorderFailure = (error) => ({
+    type: GET_SORDER_FAILURE,
+    payload: error,
+  })
+
+  export const getSortValue = (order) =>{
+      return (dispatch, getState) => {
+          dispatch({type: GET_SORDER_REQUEST})
+          if(order){
+              dispatch(getSorderSuccess(order))
+          }else{
+              dispatch(getSorderFailure())
+          }
+      }
+
+  }
+
+  const sortbyAgeSuccess = (users) => ({
+    type: SORT_BY_AGE,
+    payload: users
+  })
+  export const sortByAge = (sortOrder, users) =>{
+      return (dispatch, getState) =>{
+        switch(sortOrder) {
+            case "asc":
+                users.sort((a,b)=> (a.age>b.age) ? 1 : -1)
+                // list.sort((a, b) => (a.color > b.color) ? 1 : -1)
+                console.log(users)
+                dispatch(sortbyAgeSuccess(users))
+                break;
+            case "dsc":
+                users.sort((a,b)=> (a.age < b.age) ? 1 : -1 )
+                console.log(users)
+                dispatch(sortbyAgeSuccess(users))
+                break;
+            default:
+                return users;
+        }
       }
   }

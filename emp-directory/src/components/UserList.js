@@ -1,7 +1,7 @@
 import React from 'react'
 import {useState, useEffect} from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { getUsers, searchbyName } from '../action';
+import { getUsers, searchbyName, sortByAge } from '../action';
 import { v4 } from "uuid"
 
 
@@ -36,11 +36,12 @@ export default function UserList() {
     // ])
     
    const dispatch = useDispatch();
-    const [users, error, searchTerm, filteredList] = useSelector((gState) => [
+    const [users, error, searchTerm, filteredList, sortOrder] = useSelector((gState) => [
         gState.users,
         gState.error,
         gState.searchTerm,
-        gState.filteredList
+        gState.filteredList,
+        gState.sortOrder
     ])
 
     useEffect(() => {
@@ -50,6 +51,10 @@ export default function UserList() {
     useEffect(() => {
         dispatch(searchbyName(searchTerm, users))
     },[searchTerm]);
+
+    useEffect(() => {
+        dispatch(sortByAge(sortOrder, users))
+    },[sortOrder]);
 
    
     
