@@ -41,7 +41,7 @@ export default function HeaderBar() {
       </NavDropdown>
     </Nav>
     <Form inline>
-      <FormControl type="text" placeholder="Search" className="search" value={searchTerm} onChange={handleChange} />
+      <FormControl type="text" placeholder="Search by first name" className="search" value={searchTerm} onChange={handleChange} />
       <Button variant="outline-success">Search</Button>
     </Form>
   </Navbar.Collapse>
