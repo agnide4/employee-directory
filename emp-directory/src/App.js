@@ -11,7 +11,7 @@ function App() {
    
         <div className="App container-fluid">
             <HeaderBar />
-            <Users />
+            <Route exact path="/" component={Users} />
             <Route exact path="/About" component={Home} />
         </div>
     
