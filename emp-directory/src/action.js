@@ -56,6 +56,7 @@ const getUserSuccess = (users) => ({
     type: SEACH_BY_NAME,
     payload: filteredList
   })
+  
   export const searchbyName = (searchTerm, users) =>{
       return (dispatch, getState) =>{
         let newList = []
