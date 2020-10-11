@@ -1,6 +1,6 @@
 import userEvent from '@testing-library/user-event';
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch} from "react-router-dom"
+import { BrowserRouter as Router, Route} from "react-router-dom"
 import './App.css';
 import HeaderBar from './components/HeaderBar';
 import Home from './components/home';
@@ -10,7 +10,7 @@ function App() {
   return (
    
         <div className="App container-fluid">
-            <HeaderBar />
+            <Route exact path="/" component={HeaderBar} />
             <Route exact path="/" component={Users} />
             <Route exact path="/About" component={Home} />
         </div>

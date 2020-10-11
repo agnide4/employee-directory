@@ -30,7 +30,7 @@ export default function HeaderBar() {
   <Navbar.Toggle aria-controls="basic-navbar-nav" />
   <Navbar.Collapse id="basic-navbar-nav">
     <Nav className="mr-auto">
-      <Nav.Link href="About">About</Nav.Link>
+      <Nav.Link href="/About">About</Nav.Link>
       <NavDropdown title="Sort List by Age" id="basic-nav-dropdown" value={sortTerm} onSelect={sortHandleChange}>
         <NavDropdown.Item eventKey="asc" >ASCENDING</NavDropdown.Item>
         <NavDropdown.Item eventKey="dsc">DESCENDING</NavDropdown.Item>
